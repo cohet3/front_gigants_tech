@@ -4,6 +4,7 @@ import os
 import openai
 import random
 import streamlit as st
+
 # Función para cargar los datos CSV
 def load_data(url):
     data = pd.read_csv(url)
@@ -73,29 +74,30 @@ def generar_comentario(data):
 
 
 
-
-import openai
-import os
-
 # Configurar la API Key correctamente
 openai.api_key = st.secrets["openai"]["api_key"]
 # Función para obtener el comentario del "experto"
 def obtener_comentario_experto(data):
     tendencia = data['Predicción'].pct_change().mean()
+    prompt = ""
+    
+    if tendencia > 0:
+        prompt = "La predicción muestra una tendencia de crecimiento general. ¿Puedes proporcionar un análisis adicional?"
+    elif tendencia < 0:
+        prompt = "La predicción indica una caída general en el futuro. ¿Puedes proporcionar un análisis adicional?"
+    else:
+        prompt = "No se observa un cambio significativo en las predicciones. ¿Puedes proporcionar un análisis adicional?"
 
-    # Crear el prompt
-    prompt = f"La predicción para la empresa muestra una tendencia de {'crecimiento' if tendencia > 0 else 'caída' if tendencia < 0 else 'estabilidad'}. Dame un consejo financiero con base en esta tendencia."
-
-    # Usar el cliente con la nueva API
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",  # Asegúrate de usar el modelo adecuado
+    # Llamada a la API de OpenAI
+    response = openai.chat_completions.create(
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "Eres un asesor financiero experto."},
             {"role": "user", "content": prompt}
         ]
     )
 
-    # Extraer y devolver la respuesta
+    # Extraer el contenido de la respuesta
     return response.choices[0].message['content']
 
 
