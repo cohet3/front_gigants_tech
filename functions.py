@@ -88,8 +88,8 @@ def obtener_comentario_experto(data):
     else:
         prompt = "No se observa un cambio significativo en las predicciones. ¿Puedes proporcionar un análisis adicional?"
 
-    # Llamada a la API de OpenAI
-    response = openai.chat_completions.create(
+    # Llamada a la API de OpenAI con el nuevo formato de 'chat_completions'
+    response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "Eres un asesor financiero experto."},
