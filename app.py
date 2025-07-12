@@ -3,7 +3,7 @@ import streamlit as st # type ignored
 import plotly.graph_objects as go  # Cambiamos a go para crear áreas rellenas
 import os
 
-from functions import load_data, log_interaction_with_dates, generar_comentario, obtener_comentario_experto  # Importar las funciones desde functions.py
+from functions import load_data, log_interaction_with_dates #, generar_comentario , obtener_comentario_experto  # Importar las funciones desde functions.py
 
 # Configura el título de la página y el icono de la pestaña
 st.set_page_config(page_title="Gigantes Tecnológicos", page_icon=":chart_with_upwards_trend:")
@@ -148,7 +148,7 @@ st.subheader("Comentario del experto:")
 # Mostrar el comentario generado por el "experto" API de pago GPT
 
 
-st.write(obtener_comentario_experto(filtered_data))
+# st.write(obtener_comentario_experto(filtered_data))
 
 
 

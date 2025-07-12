@@ -74,26 +74,26 @@ def generar_comentario(data):
 
 
 
-# Configurar la API Key correctamente
-openai.api_key = st.secrets["openai"]["api_key"]
-# Función para obtener el comentario del "experto"
-def obtener_comentario_experto(data):
-    tendencia = data['Predicción'].pct_change().mean()
+# # Configurar la API Key correctamente
+# openai.api_key = st.secrets["openai"]["api_key"]
+# # Función para obtener el comentario del "experto"
+# def obtener_comentario_experto(data):
+#     tendencia = data['Predicción'].pct_change().mean()
 
-    # Crear el prompt
-    prompt = f"La predicción para la empresa muestra una tendencia de {'crecimiento' if tendencia > 0 else 'caída' if tendencia < 0 else 'estabilidad'}. Dame un consejo financiero con base en esta tendencia."
+#     # Crear el prompt
+#     prompt = f"La predicción para la empresa muestra una tendencia de {'crecimiento' if tendencia > 0 else 'caída' if tendencia < 0 else 'estabilidad'}. Dame un consejo financiero con base en esta tendencia."
 
-    # Usar el cliente con la nueva API
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",  # Asegúrate de usar el modelo adecuado
-        messages=[
-            {"role": "system", "content": "Eres un asesor financiero experto."},
-            {"role": "user", "content": prompt}
-        ]
-    )
+#     # Usar el cliente con la nueva API
+#     response = openai.ChatCompletion.create(
+#         model="gpt-3.5-turbo",  # Asegúrate de usar el modelo adecuado
+#         messages=[
+#             {"role": "system", "content": "Eres un asesor financiero experto."},
+#             {"role": "user", "content": prompt}
+#         ]
+#     )
 
-    # Extraer y devolver la respuesta
-    return response.choices[0].message['content']
+#     # Extraer y devolver la respuesta
+#     return response.choices[0].message['content']
 
 
 
